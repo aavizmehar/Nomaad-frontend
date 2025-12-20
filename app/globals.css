@@ -1,0 +1,203 @@
+@import "tailwindcss";
+
+body {
+  font-family: var(--font-poppins);
+  /* font-family:var(--font-montserrat); */
+
+}
+
+:root {
+  /* Brand Primary Colors */
+  --color-primary: #D49159;
+  --color-primary-dark: #CD7643;
+--color-orange-dark: #ca3b0c
+/*         COLORS     --wds-color-orange-darker: #431404;
+    --wds;
+    --wds-color-orange: #f25621;
+    --wds-color-orange-light: #ff7d52;
+    --wds-color-orange-lighter: #fbcfc0;
+    --wds-color-orange-lightest: #fef0ec; */
+
+
+
+  /* Secondary / Support Colors */
+  --color-secondary-1: #6F3925;
+  --color-secondary-2: #396A6B;
+  --color-secondary-3: #314E4D;
+
+  /* Neutral Colors */
+  --color-neutral-dark: #1A2627;
+
+  /* Text Colors */
+  --color-text-light: #ffffff;
+  --color-text-dark: #1a1a1a;
+}
+
+.bg-primary {
+  background-color: var(--color-primary);
+}
+
+.btn-primary {
+  background: #D49159;
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-weight: 600;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+  transition: 0.3s;
+}
+
+.btn-primary:hover {
+  background: #CD7643;
+  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.25);
+}
+
+/* Global container layout */
+.container {
+  width: 100%;
+  max-width: 1280px;
+  /* Desktop width */
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 4.5rem;
+  /* 16px */
+  padding-right: 4.5rem;
+  /* 16px */
+}
+
+/* Laptop */
+@media (max-width: 1024px) {
+  .container {
+    max-width: 960px;
+  }
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+  .container {
+    max-width: 720px;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .container {
+    max-width: 100%;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+}
+
+/* * Responsive Typography Styles for Travel Website
+ * Based on the Tailwind CSS scale in typography_guide.md
+ */
+
+/* -------------------- BASE STYLES (Mobile First: < 640px) -------------------- */
+
+body {
+  /* Base font size equivalent to Tailwind's 'text-base' */
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* H1: Primary Headings (36px) */
+h1 {
+  font-size: 2.25rem;
+  /* 36px */
+  font-weight: 900;
+  /* font-black/extrabold */
+  line-height: 1.1;
+  margin-bottom: 2rem;
+  /* Example spacing */
+}
+
+/* H2: Secondary Headings (24px) */
+h2 {
+  font-size: 1.5rem;
+  /* 24px */
+  font-weight: 700;
+  /* font-bold */
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+}
+
+/* H3: Tertiary Headings (20px) */
+h3 {
+  font-size: 1.25rem;
+  /* 20px */
+  font-weight: 600;
+}
+
+/* P: Body Text (16px) */
+p {
+  font-size: 12px;
+  line-height: 1.6;
+  /* leading-relaxed */
+}
+
+/* Small/Utility Text (12px) */
+.text-small,
+small {
+  font-size: 0.75rem;
+  /* 12px */
+  color: #6b7280;
+  /* text-gray-500 */
+  line-height: 1.4;
+}
+
+
+/* -------------------- TABLET/SMALL DESKTOP STYLES (>= 640px) -------------------- */
+
+@media (min-width: 640px) {
+
+  /* H1: Primary Headings (48px) */
+  h1 {
+    font-size: 2.5rem;
+    /* 48px */
+  }
+
+  /* H2: Secondary Headings (30px) */
+  h2 {
+    font-size: 1.875rem;
+    /* 30px */
+  }
+
+  /* H3: Tertiary Headings (24px) */
+  h3 {
+    font-size: 1.5rem;
+  }
+
+  /* P: Body Text (18px) */
+  p {
+    font-size: 14px;
+  }
+
+  /* Small/Utility Text (14px) */
+  .text-small,
+  small {
+    font-size: 0.875rem;
+    /* 14px */
+  }
+}
+
+
+/* -------------------- LARGE DESKTOP STYLES (>= 1024px) -------------------- */
+
+@media (min-width: 1024px) {
+
+  /* H1: Primary Headings (60px) */
+  h1 {
+    font-size: 3rem;
+    /* 60px */
+  }
+
+  /* H2: Secondary Headings (36px) */
+  h2 {
+    font-size: 2.25rem;
+    /* 36px */
+  }
+
+  /* P: Body Text (18px - no change from tablet) */
+}

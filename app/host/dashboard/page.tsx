@@ -59,11 +59,11 @@ export default function HostDashboard() {
   };
 
   useEffect(() => {
-    // if (!token || role !== 'host') {
-    //   router.replace('/user/login');
-    // } else {
-    //   fetchHostProfile();
-    // }
+    if (!token || role !== 'host') {
+      router.replace('/user/login');
+    } else {
+      fetchHostProfile();
+    }
   }, [token, role]);
 
   const handleLogout = () => {

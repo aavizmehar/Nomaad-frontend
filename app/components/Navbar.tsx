@@ -173,8 +173,6 @@ const Navbar: React.FC = () => {
             )}
           </div>
 
-          <Link href="/host/dashboard" className="text-lg font-bold border-b pb-2" onClick={handleMobileLinkClick}>host Dashboard</Link>
-
           <Link href="/pricing" className="text-lg font-bold border-b pb-2" onClick={handleMobileLinkClick}>Pricing</Link>
 
           <div className="pt-4 space-y-4">

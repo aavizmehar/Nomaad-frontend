@@ -6,25 +6,14 @@ interface PrimaryBtnProps {
   className?: string;
 }
 
-export default function PrimaryBtn({ text, action, className  }: PrimaryBtnProps) {
+export default function PrimaryBtn({ text, action, className }: PrimaryBtnProps) {
   const href = `/${action}`;
 
   return (
+
     <Link
       href={href}
-      className={`
-        inline-block 
-        px-7 py-2.5 
-        text-sm font-semibold 
-        rounded-full 
-        bg-[#cd7643]
-        text-white 
-        shadow-md 
-        hover:bg-[#d49159] 
-        hover:shadow-lg 
-        transition-all 
-        duration-300 
-        w-fit
+      className={`mt-12 flex items-center gap-3 bg-yellow-400 text-black px-8 py-4 rounded-full font-bold transition-all shadow-xl shadow-[#431404]/10
         ${className}
       `}
     >

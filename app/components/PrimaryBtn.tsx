@@ -1,7 +1,8 @@
-import Link from "next/link";
+import { Link } from 'lucide-react';
+import { ReactNode } from 'react';
 
 interface PrimaryBtnProps {
-  text: string;
+  text: ReactNode;
   action: string;
   className?: string;
 }

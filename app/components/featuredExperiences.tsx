@@ -17,7 +17,7 @@ const experiences = [
   { 
     title: "Digital Nomad Stays", 
     link: "/experiences/digital-nomad-stays",
-    image: "/featuredImgs/diginomad.webp ",
+    image: "/featuredImgs/diginomad.webp",
     desc: "Co-living spaces with high-speed internet in beautiful remote locations."
   },
   { 
@@ -52,9 +52,10 @@ export default function FeaturedExperiences() {
             <div key={idx} className="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 group overflow-hidden">
               {/* Image Container */}
               <div className="relative h-52 w-full overflow-hidden">
-                <img 
-                  src={exp.image} 
+                <Image 
+                  src={exp.image}
                   alt={exp.title}
+                  fill={true}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 transition-opacity duration-300" />

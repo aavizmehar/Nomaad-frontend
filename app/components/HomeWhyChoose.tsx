@@ -1,9 +1,9 @@
-'use client';
 import PrimaryBtn from "./PrimaryBtn";
-
+import Image from "next/image";
 import { motion } from 'framer-motion';
 import { CheckCircle2, Globe, Heart, Users, Zap, ArrowRight } from 'lucide-react';
-
+import pic1 from "../../public/featuredImgs/weekendtrips.webp";
+import pic2 from "../../public/featuredImgs/ruralhomestay.webp";
 const features = [
   { 
     title: "Verified NGO Partners", 
@@ -25,13 +25,11 @@ const features = [
 export default function WhyChooseNomadYatri() {
   return (
     <section className="relative mt-28 py-32 bg-[#fffcf9] overflow-hidden">
-      {/* Decorative Background Element */}
       <div className="absolute top-0 right-0 w-1/3 h-full bg-[#ff7d52]/5 rounded-l-[100px] -z-10" />
 
       <div className="container mx-auto px-6 max-w-7xl">
         <div className="flex flex-col lg:flex-row items-center gap-16">
           
-          {/* LEFT CONTENT: Text & Features */}
           <div className="lg:w-1/2">
             <motion.div 
               initial={{ opacity: 0, x: -20 }}
@@ -78,18 +76,17 @@ export default function WhyChooseNomadYatri() {
             </motion.div>
           </div>
 
-          {/* RIGHT CONTENT: Image Cluster (The "Reference" look) */}
+          {/* images*/}
           <div className="lg:w-1/2 relative h-[500px] md:h-[600px] w-full">
-            {/* Main Large Image */}
             <motion.div 
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               className="absolute top-10 left-10 w-3/4 h-3/4 rounded-[40px] overflow-hidden shadow-2xl border-8 border-white"
             >
-              <img 
-                src="https://images.unsplash.com/photo-1526772662000-3f88f10405ff?auto=format&fit=crop&q=80" 
+              <Image
+                src={pic1}
                 alt="Traveler" 
-                className="w-full h-full object-cover"
+                fill={true}
               />
             </motion.div>
 
@@ -100,14 +97,14 @@ export default function WhyChooseNomadYatri() {
               transition={{ delay: 0.2 }}
               className="absolute bottom-0 right-0 w-1/2 h-1/2 rounded-[30px] overflow-hidden shadow-2xl border-8 border-white"
             >
-              <img 
-                src="https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&q=80" 
-                alt="Community" 
-                className="w-full h-full object-cover"
+              <Image 
+                src={pic2}
+                alt="Community"
+                fill={true}
+
               />
             </motion.div>
 
-            {/* Floating Badge */}
             <motion.div 
               animate={{ y: [0, -10, 0] }}
               transition={{ repeat: Infinity, duration: 4 }}
@@ -125,7 +122,6 @@ export default function WhyChooseNomadYatri() {
 
         </div>
 
-        {/* Purpose Quote */}
         <div className="mt-32 text-center">
           <p className="text-[#f25621] font-black text-2xl md:text-3xl italic opacity-80">
             “Travel cheap. Travel deep. Travel with purpose.”

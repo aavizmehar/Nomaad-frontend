@@ -36,8 +36,8 @@ const Footer: React.FC = () => {
               <SocialLink href="https://instagram.com"
                 path={BRAND_ICONS.Instagram}
                 label="Instagram" />
-              <SocialLink href="https://facebook.com" path={BRAND_ICONS.Facebook } label="Facebook" />
-              <SocialLink href="https://twitter.com" path={BRAND_ICONS.X } label="Twitter" />
+              <SocialLink href="https://facebook.com" path={BRAND_ICONS.Facebook} label="Facebook" />
+              <SocialLink href="https://twitter.com" path={BRAND_ICONS.X} label="Twitter" />
             </div>
           </div>
 
@@ -51,7 +51,9 @@ const Footer: React.FC = () => {
               <FooterLink href="/experiences/cultural-experiences">Cultural Trips</FooterLink>
             </ul>
           </div>
-
+          <Link href="/admin/login" className="text-gray-400 text-xs hover:underline">
+            Staff Portal
+          </Link>
           {/* Column 3: Company */}
           <div className="space-y-6">
             <h4 className="text-white font-bold uppercase tracking-wider text-sm">Company</h4>

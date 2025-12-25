@@ -14,7 +14,7 @@ const Navbar: React.FC = () => {
 
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  
+
   // Mobile Accordion States
   const [mobileExpOpen, setMobileExpOpen] = useState(false);
   const [mobileComOpen, setMobileComOpen] = useState(false);
@@ -34,19 +34,29 @@ const Navbar: React.FC = () => {
   return (
     <nav className="w-full bg-white/90 backdrop-blur-2xl border-b border-gray-100 fixed top-0 left-0 z-[100] transition-all">
       <div className="container mx-auto flex items-center justify-between px-6">
-        
+
         {/* 1. Logo Section */}
         <Link href="/" className="flex items-center gap-4 group">
-          <Image 
-            src="/logo.png" 
-            height={100} 
-            width={100} 
-            alt="Nomad Yatri Logo" 
-            className="group-hover:rotate-[15deg] transition-transform duration-500" 
+          <Image
+            src="/logo.png"
+            height={100}
+            width={100}
+            alt="Nomad Yatri Logo"
+            className="group-hover:rotate-[15deg] transition-transform duration-500"
           />
-          <div className="flex flex-col text-black">
-            <span className="text-3xl font-black tracking-widest uppercase leading-none">NOMAD</span>
-            <span className="text-[20px] font-bold text-gray-400 tracking-[0.5em] uppercase mt-1">YATRI</span>
+          <div className="flex flex-col items-center group cursor-pointer">
+            <div className="flex items-baseline">
+              <span className="text-5xl font-black tracking-tight text-black transition-transform duration-300 group-hover:-translate-x-1">
+                NOMAD
+              </span>
+            </div>
+            <div className="w-full flex justify-between items-center -mt-2">
+              <div className="h-[1px] flex-1 bg-gray-200"></div>
+              <span className="px-3 text-s font-black tracking-[0.6em] text-yellow-400 uppercase">
+                YATRI
+              </span>
+              <div className="h-[1px] flex-1 bg-gray-200"></div>
+            </div>
           </div>
         </Link>
 
@@ -54,7 +64,7 @@ const Navbar: React.FC = () => {
         <div className="hidden md:flex items-center space-x-12">
           <ul className="flex items-center space-x-10 text-[15px] font-bold uppercase tracking-wider text-gray-600">
             <li><Link href="/" className="hover:text-black transition-colors">Home</Link></li>
-            
+
             {/* Experiences Dropdown */}
             <li className="relative group">
               <button className="flex items-center gap-2 hover:text-black transition-colors">
@@ -92,9 +102,8 @@ const Navbar: React.FC = () => {
           <div className="relative border-l border-gray-200 pl-10">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className={`flex items-center gap-3 px-8 py-3.5 rounded-full transition-all duration-500 shadow-xl ${
-                isLoggedIn ? "bg-black text-white" : "bg-yellow-400 text-black hover:bg-black hover:text-white"
-              }`}
+              className={`flex items-center gap-3 px-8 py-3.5 rounded-full transition-all duration-500 shadow-xl ${isLoggedIn ? "bg-black text-white" : "bg-yellow-400 text-black hover:bg-black hover:text-white"
+                }`}
             >
               <UserProfileIcon />
               <span className="text-sm font-black uppercase tracking-widest">{isLoggedIn ? "Account" : "Join Now"}</span>
@@ -135,7 +144,6 @@ const Navbar: React.FC = () => {
         <div className="fixed h-screen inset-0 top-[85px] bg-white z-[90] px-10 py-8 flex flex-col space-y-6 overflow-y-auto animate-in slide-in-from-bottom duration-500">
           <ul className="space-y-6">
             <li><Link href="/" onClick={handleMobileLinkClick} className="text-3xl font-bold tracking-tighter text-gray-900">Home</Link></li>
-            
             {/* Experiences Accordion */}
             <li className="border-b border-gray-100 pb-4">
               <button onClick={() => setMobileExpOpen(!mobileExpOpen)} className="flex items-center justify-between w-full text-3xl font-bold tracking-tighter text-gray-900">

@@ -17,27 +17,17 @@ const experiences = [
   { 
     title: "Digital Nomad Stays", 
     link: "/experiences/digital-nomad-stays",
-    image: "/featuredImgs/diginomad.webp",
+    image: "/featuredImgs/diginomad.webp ",
     desc: "Co-living spaces with high-speed internet in beautiful remote locations."
   },
   { 
-    title: "Rural Homestays", 
-    link: "/experiences/rural-homestays",
+    title: "Cultural Experiences", 
+    link: "/experiences/cultural-experiences",
     image: "/featuredImgs/ruralhomestay.webp",
     desc: "Immerse yourself in local culture with authentic village stays."
   },
-  { 
-    title: "Eco Projects", 
-    link: "/eco-projects",
-    image: "/featuredImgs/ecoprojects.webp",
-    desc: "Contribute to reforestation, permaculture, and green building."
-  },
-  { 
-    title: "Weekend Trips", 
-    link: "/weekend-trips",
-    image: "/featuredImgs/weekendtrips.webp",
-    desc: "Quick getaways for nature lovers and adventure seekers."
-  },
+
+ 
 ];
 
 export default function FeaturedExperiences() {
@@ -52,10 +42,9 @@ export default function FeaturedExperiences() {
             <div key={idx} className="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 group overflow-hidden">
               {/* Image Container */}
               <div className="relative h-52 w-full overflow-hidden">
-                <Image 
-                  src={exp.image}
+                <img 
+                  src={exp.image} 
                   alt={exp.title}
-                  fill={true}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 transition-opacity duration-300" />

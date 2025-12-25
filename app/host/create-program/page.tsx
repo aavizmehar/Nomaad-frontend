@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, ChangeEvent, FormEvent } from 'react';
+import React, { useState, ChangeEvent, FormEvent } from 'react'; // Added React types
 import { useRouter } from 'next/navigation';
 import { dashboardApi } from '@/lib/api/dashboard.api';
 import {
@@ -19,13 +19,15 @@ export default function CreateProgramPage() {
     duration: '',
     maxVolunteers: ''
   });
-  const [images, setImages] = useState<File[]>([]);
-  const [imagePreviews, setImagePreviews] = useState<string[]>([]);
+  const [images, setImages] = useState<File[]>([]); // Type added for File array
+  const [imagePreviews, setImagePreviews] = useState<string[]>([]); // Type added for strings
 
+  // Type safe lookup for categories
   const categoryKey = formData.category as keyof typeof CATEGORY_SUBCATEGORIES;
   const availableSubcategories = CATEGORY_SUBCATEGORIES[categoryKey] || [];
   const hasSubcategories = availableSubcategories.length > 0;
 
+  // FIXED: Added types for HTMLInputElement, HTMLTextAreaElement, and HTMLSelectElement
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -34,11 +36,12 @@ export default function CreateProgramPage() {
     }));
   };
 
+  // FIXED: Added type for Category Select
   const handleCategoryChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setFormData({
       ...formData,
       category: e.target.value,
-      subCategory: '' 
+      subCategory: '' // Reset subcategory when category changes
     });
   };
 
@@ -47,9 +50,6 @@ export default function CreateProgramPage() {
       const files = Array.from(e.target.files);
       setImages(files);
 
-      // Revoke old previews to save memory
-      imagePreviews.forEach(preview => URL.revokeObjectURL(preview));
-      
       const previews = files.map((file) => URL.createObjectURL(file));
       setImagePreviews(previews);
     }
@@ -57,48 +57,30 @@ export default function CreateProgramPage() {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
-    if (images.length === 0) {
-      alert("Please upload at least one image.");
-      return;
-    }
-
     setLoading(true);
 
     try {
       const formDataToSend = new FormData();
       
-      // Append basic text fields
-      formDataToSend.append('title', formData.title);
-      formDataToSend.append('description', formData.description);
-      formDataToSend.append('category', formData.category);
-      
-      // Only append optional fields if they have values
-      if (formData.subCategory) formDataToSend.append('subCategory', formData.subCategory);
-      if (formData.location) formDataToSend.append('location', formData.location);
-      if (formData.duration) formDataToSend.append('duration', formData.duration);
-      
-      // Ensure maxVolunteers is sent as a string representation of a number
-      if (formData.maxVolunteers) {
-        formDataToSend.append('maxVolunteers', formData.maxVolunteers);
-      }
+      Object.entries(formData).forEach(([key, value]) => {
+        if (value) {
+          formDataToSend.append(key, value);
+        }
+      });
 
-      // Important: Ensure the key 'programImages' matches your Backend route: upload.array('programImages')
       images.forEach((image) => {
         formDataToSend.append('programImages', image);
       });
 
       const response = await dashboardApi.createProgram(formDataToSend);
       
-      // Check for success property (adjust based on your actual API response structure)
-      if (response) {
+      if (response.success) {
         alert('Program created successfully!');
-        router.push('/host/dashboard'); // Redirect to dashboard or listing page
+        router.push('/host/my-programs');
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error creating program:', error);
-      const errorMessage = error.response?.data?.message || 'Failed to create program. Please try again.';
-      alert(errorMessage);
+      alert('Failed to create program. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -107,132 +89,128 @@ export default function CreateProgramPage() {
   return (
     <div className="min-h-screen bg-gray-50 py-8 text-black">
       <div className="container mx-auto px-4 max-w-3xl">
-        <div className="bg-white rounded-[2rem] shadow-xl p-8 border border-gray-100">
-          <h1 className="text-3xl font-black mb-2 text-gray-800">Create New Program</h1>
-          <p className="text-gray-500 mb-8 font-medium">List a new volunteering opportunity for travelers.</p>
+        <div className="bg-white rounded-lg shadow-lg p-8">
+          <h1 className="text-3xl font-bold mb-6">Create New Program</h1>
 
           <form onSubmit={handleSubmit} className="space-y-6">
+            {/* Title */}
             <div>
-              <label className="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 ml-1">Program Title *</label>
+              <label className="block text-sm font-semibold mb-2">Program Title *</label>
               <input
                 type="text"
                 name="title"
                 value={formData.title}
                 onChange={handleChange}
-                className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-5 py-4 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none transition-all"
+                className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 placeholder="e.g., Teaching English in Rural Schools"
                 required
               />
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Category */}
+            <div>
+              <label className="block text-sm font-semibold mb-2">Program Category *</label>
+              <select
+                name="category"
+                value={formData.category}
+                onChange={handleCategoryChange}
+                className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                required
+              >
+                <option value="">Select a category</option>
+                {Object.values(PROGRAM_CATEGORIES).map((category) => (
+                  <option key={category} value={category}>{category}</option>
+                ))}
+              </select>
+            </div>
+
+            {/* SubCategory (conditional) */}
+            {hasSubcategories && (
               <div>
-                <label className="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 ml-1">Category *</label>
+                <label className="block text-sm font-semibold mb-2">Sub-Category (Optional)</label>
                 <select
-                  name="category"
-                  value={formData.category}
-                  onChange={handleCategoryChange}
-                  className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-5 py-4 focus:ring-4 focus:ring-blue-500/10 outline-none transition-all"
-                  required
+                  name="subCategory"
+                  value={formData.subCategory}
+                  onChange={handleChange}
+                  className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 >
-                  <option value="">Select a category</option>
-                  {Object.values(PROGRAM_CATEGORIES).map((category) => (
-                    <option key={category} value={category}>{category}</option>
+                  <option value="">Select a sub-category</option>
+                  {availableSubcategories.map((sub) => (
+                    <option key={sub} value={sub}>{sub}</option>
                   ))}
                 </select>
               </div>
+            )}
 
-              {hasSubcategories && (
-                <div>
-                  <label className="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 ml-1">Sub-Category</label>
-                  <select
-                    name="subCategory"
-                    value={formData.subCategory}
-                    onChange={handleChange}
-                    className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-5 py-4 focus:ring-4 focus:ring-blue-500/10 outline-none transition-all"
-                  >
-                    <option value="">Select a sub-category</option>
-                    {availableSubcategories.map((sub) => (
-                      <option key={sub} value={sub}>{sub}</option>
-                    ))}
-                  </select>
-                </div>
-              )}
-            </div>
-
+            {/* Description */}
             <div>
-              <label className="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 ml-1">Description *</label>
+              <label className="block text-sm font-semibold mb-2">Description *</label>
               <textarea
                 name="description"
                 value={formData.description}
                 onChange={handleChange}
-                className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-5 py-4 h-40 focus:ring-4 focus:ring-blue-500/10 outline-none transition-all resize-none"
-                placeholder="Describe your program, daily tasks, and what volunteers will learn..."
+                className="w-full border border-gray-300 rounded-lg px-4 py-2 h-32 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                placeholder="Describe your program in detail..."
                 required
               />
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div>
-                <label className="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 ml-1">Location</label>
-                <input
-                  type="text"
-                  name="location"
-                  value={formData.location}
-                  onChange={handleChange}
-                  className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-5 py-4 focus:ring-4 focus:ring-blue-500/10 outline-none transition-all"
-                  placeholder="e.g., Udaipur"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 ml-1">Duration</label>
-                <input
-                  type="text"
-                  name="duration"
-                  value={formData.duration}
-                  onChange={handleChange}
-                  className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-5 py-4 focus:ring-4 focus:ring-blue-500/10 outline-none transition-all"
-                  placeholder="e.g., 2 weeks"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 ml-1">Max Volunteers</label>
-                <input
-                  type="number"
-                  name="maxVolunteers"
-                  value={formData.maxVolunteers}
-                  onChange={handleChange}
-                  className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-5 py-4 focus:ring-4 focus:ring-blue-500/10 outline-none transition-all"
-                  placeholder="e.g., 5"
-                  min="1"
-                />
-              </div>
+            {/* Location */}
+            <div>
+              <label className="block text-sm font-semibold mb-2">Location</label>
+              <input
+                type="text"
+                name="location"
+                value={formData.location}
+                onChange={handleChange}
+                className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                placeholder="e.g., Udaipur, Rajasthan"
+              />
             </div>
 
+            {/* Duration */}
             <div>
-              <label className="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 ml-1">Program Images *</label>
-              <div className="flex items-center justify-center w-full">
-                <label className="flex flex-col items-center justify-center w-full h-40 border-2 border-gray-200 border-dashed rounded-[2rem] cursor-pointer bg-gray-50 hover:bg-gray-100 transition-all">
-                  <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                    <p className="mb-2 text-sm text-gray-500 font-bold">Click to upload photos</p>
-                    <p className="text-xs text-gray-400">PNG, JPG or WEBP (Max 5MB)</p>
-                  </div>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    multiple
-                    onChange={handleImageChange}
-                    className="hidden"
-                  />
-                </label>
-              </div>
+              <label className="block text-sm font-semibold mb-2">Duration</label>
+              <input
+                type="text"
+                name="duration"
+                value={formData.duration}
+                onChange={handleChange}
+                className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                placeholder="e.g., 2-4 weeks, Flexible, Weekend only"
+              />
+            </div>
+
+            {/* Max Volunteers */}
+            <div>
+              <label className="block text-sm font-semibold mb-2">Maximum Volunteers</label>
+              <input
+                type="number"
+                name="maxVolunteers"
+                value={formData.maxVolunteers}
+                onChange={handleChange}
+                className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                placeholder="e.g., 10"
+                min="1"
+              />
+            </div>
+
+            {/* Images */}
+            <div>
+              <label className="block text-sm font-semibold mb-2">Program Images</label>
+              <input
+                type="file"
+                accept="image/*"
+                multiple
+                onChange={handleImageChange}
+                className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+              <p className="text-sm text-gray-500 mt-1">You can upload multiple images</p>
 
               {imagePreviews.length > 0 && (
-                <div className="grid grid-cols-3 sm:grid-cols-4 gap-4 mt-6">
+                <div className="grid grid-cols-3 gap-4 mt-4">
                   {imagePreviews.map((preview, index) => (
-                    <div key={index} className="relative h-24 rounded-2xl overflow-hidden border-2 border-white shadow-sm">
+                    <div key={index} className="relative h-32 rounded-lg overflow-hidden border">
                       <img src={preview} alt={`Preview ${index + 1}`} className="w-full h-full object-cover" />
                     </div>
                   ))}
@@ -243,7 +221,7 @@ export default function CreateProgramPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-blue-600 text-white py-5 rounded-2xl font-black text-lg hover:bg-blue-700 hover:shadow-xl hover:shadow-blue-200 transition-all disabled:opacity-50 disabled:cursor-not-allowed active:scale-[0.98]"
+              className="w-full bg-blue-600 text-white py-3 rounded-lg font-bold text-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? 'Creating Program...' : 'Create Program'}
             </button>

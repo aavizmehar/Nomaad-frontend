@@ -1,4 +1,4 @@
-import Link from 'next/link'; // Fixed: Import from next/link
+import Link from 'next/link';
 import { ReactNode } from 'react';
 
 interface PrimaryBtnProps {
@@ -8,7 +8,6 @@ interface PrimaryBtnProps {
 }
 
 export default function PrimaryBtn({ text, action, className }: PrimaryBtnProps) {
-  // Ensure the action starts with a slash if not provided
   const href = action.startsWith('/') ? action : `/${action}`;
 
   return (

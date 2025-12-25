@@ -1,132 +1,157 @@
 import React from "react";
-import Link from "next/link";
-// --- Simple Icons SVG Paths (Brand logos) ---
-const BRAND_ICONS = {
-  Instagram: "M12 2.163c3.204 0 3.584.012 4.85.07 1.166.054 1.8.249 2.223.413.56.218.959.479 1.379.899.42.42.681.819.899 1.379.164.423.359 1.057.413 2.223.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.054 1.166-.249 1.8-.413 2.223-.218.56-.479.959-.899 1.379-.42.42-.819.681-1.379.899-.423.164-1.057.359-2.223.413-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.166-.054-1.8-.249-2.223-.413-.56-.218-.959-.479-1.379-.899-.42-.42-.681-.819-.899-1.379-.164-.423-.359-1.057-.413-2.223-.058-1.266-.07-1.646-.07-4.85s.012-3.584.07-4.85c.054-1.166.249-1.8.413-2.223.218-.56.479-.959.899-1.379.42-.42.819-.681 1.379-.899.423-.164 1.057-.359 2.223-.413 1.266-.058 1.646-.07 4.85-.07zm0-2.163c-3.259 0-3.667.014-4.947.072-1.277.057-2.148.258-2.911.555-.788.306-1.457.714-2.122 1.379-.665.665-1.073 1.334-1.379 2.122-.297.763-.498 1.634-.555 2.911-.058 1.28-.072 1.688-.072 4.947s.014 3.667.072 4.947c.057 1.277.258 2.148.555 2.911.306.788.714 1.457 1.379 2.122.665.665 1.334 1.073 2.122 1.379.763.297 1.634.498 2.911.555 1.28.058 1.688.072 4.947.072s3.667-.014 4.947-.072c1.277-.057 2.148-.258 2.911-.555.788-.306 1.457-.714 2.122-1.379.665-.665 1.073-1.334 1.379-2.122.297-.763.498-1.634.555-2.911.058-1.28.072-1.688.072-4.947s-.014-3.667-.072-4.947c-.057-1.277-.258-2.148-.555-2.911-.306-.788-.714-1.457-1.379-2.122-.665-.665-1.334-1.073-2.122-1.379-.763-.297-1.634-.498-2.911-.555-1.28-.058-1.688-.072-4.947-.072zM12 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.791-4-4s1.791-4 4-4 4 1.791 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z",
-  Facebook: "M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z",
-  X: "M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"
+import Link from 'next/link';
+type CustomLinkProps = {
+  href: string;
+  className?: string;
+  children: React.ReactNode;
 };
-import {
-  Mail,
-  Phone,
-  Globe,
-  ArrowRight
-} from "lucide-react";
+const CustomLink = ({ href, className = "", children }: CustomLinkProps) => (
+  <a href={href} className={className}>
+    {children}
+  </a>
+);
+
+// --- SVG Icons for Social Media (Placeholders) ---
+const InstagramIcon = () => (
+  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M12.315 2c2.43 0 2.753.01 3.7.073 1.05.074 1.708.243 2.274.463.552.213.987.502 1.488.983s.77 1.002.984 1.55c.22.566.389 1.224.463 2.274.062.946.073 1.269.073 3.7 0 2.43-.01 2.753-.073 3.7-.074 1.05-.243 1.708-.463 2.274-.213.552-.502.987-.983 1.488s-1.002.77-1.55.984c-.566.22-1.224.389-2.274.463-.946.062-1.269.073-3.7.073-2.43 0-2.753-.01-3.7-.073-1.05-.074-1.708-.243-2.274-.463-.552-.213-.987-.502-1.488-.983s-.77-1.002-.984-1.55c-.22-.566-.389-1.224-.463-2.274-.062-.946-.073-1.269-.073-3.7 0-2.43.01-2.753.073-3.7.074-1.05.243-1.708.463-2.274.213-.552.502-.987.983-1.488s1.002-.77 1.55-.984c.566-.22 1.224-.389 2.274-.463.946-.062 1.269-.073 3.7-.073zM12 4.315c-4.484 0-4.954.013-6.68.077-1.636.062-2.385.275-2.885.474-.523.21-.954.51-1.385.942-.43.43-.728.86-.94 1.383-.198.502-.411 1.25-.473 2.886-.064 1.726-.077 2.196-.077 6.68 0 4.484.013 4.954.077 6.68.062 1.636.275 2.385.474 2.885.21.523.51.954.942 1.385.43.43.86.728 1.383.94.502.198 1.25.411 2.886.473 1.726.064 2.196.077 6.68.077 4.484 0 4.954-.013 6.68-.077 1.636-.062 2.385-.275 2.885-.474.523-.21.954-.51 1.385-.942.43-.43.728-.86.94-1.383.198-.502.411-1.25.473-2.886.064-1.726.077-2.196.077-6.68 0-4.484-.013-4.954-.077-6.68-.062-1.636-.275-2.385-.474-2.885-.21-.523-.51-.954-.942-1.385-.43-.43-.86-.728-1.383-.94-.502-.198-1.25-.411-2.886-.473-1.726-.064-2.196-.077-6.68-.077zm0 3.65c-3.11 0-5.635 2.525-5.635 5.635s2.525 5.635 5.635 5.635 5.635-2.525 5.635-5.635-2.525-5.635-5.635-5.635zm0 9.385c-2.072 0-3.75-1.678-3.75-3.75s1.678-3.75 3.75-3.75 3.75 1.678 3.75 3.75-1.678 3.75-3.75 3.75zm5.545-9.615c-.47 0-.85.38-.85.85s.38.85.85.85.85-.38.85-.85-.38-.85-.85-.85z" clipRule="evenodd" /></svg>
+);
+const FacebookIcon = () => (
+  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.77 3.654-3.77 1.052 0 2.102.188 2.102.188v2.327h-1.215c-1.135 0-1.49.704-1.49 1.433V12h3.06l-.492 2.991h-2.568v6.987A10.025 10.025 0 0022 12z" clipRule="evenodd" /></svg>
+);
+const TwitterIcon = () => (
+  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M24 4.557a9.83 9.83 0 01-2.828.775 4.92 4.92 0 002.166-2.724 9.864 9.864 0 01-3.127 1.195 4.916 4.916 0 00-8.396 4.482A13.924 13.924 0 013.25 4.721a4.916 4.916 0 001.523 6.574 4.903 4.903 0 01-2.228-.616v.061a4.918 4.918 0 003.947 4.827 4.918 4.918 0 01-2.22.084 4.92 4.92 0 004.57 3.403A9.858 9.858 0 010 20.307a13.987 13.987 0 007.55 2.209c9.053 0 13.99-7.49 13.99-13.989 0-.214-.005-.426-.013-.637A10.05 10.05 0 0024 4.557z" /></svg>
+);
+
 
 const Footer: React.FC = () => {
-  const currentYear = new Date().getFullYear();
-
   return (
-    <footer className="bg-[#431404] text-stone-200 pt-16 pb-8 mt-20">
-      <div className="container mx-auto px-6 max-w-7xl">
+    <footer className="container bg-[#6f3925] text-white pt-20 mt-10">
+      <div className=" mx-auto px-4 max-w-7xl">
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-16">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-8 lg:gap-12 pb-8">
 
-          {/* Column 1: Brand & Mission */}
-          <div className="lg:col-span-2 space-y-6">
-            <div className="flex items-center gap-2">
-              <Globe className="text-yellow-500 w-8 h-8" />
-              <h3 className="text-2xl font-bold text-white tracking-tight">Nomad Yatri</h3>
-            </div>
-            <p className="text-stone-300 leading-relaxed max-w-md">
+          {/* Column 1: Logo & Mission */}
+          <div className="col-span-2 md:col-span-2">
+            <h3 className=" font-bold text-white mb-6">Nomad Yatri</h3>
+            <p className="leading-6 max-w-sm">
               India’s first purpose-travel ecosystem connecting volunteers, hosts, and digital nomads with meaningful, affordable, and community-led experiences.
             </p>
             {/* Social Icons */}
-            <div className="flex gap-4">
-              <SocialLink href="https://instagram.com"
-                path={BRAND_ICONS.Instagram}
-                label="Instagram" />
-              <SocialLink href="https://facebook.com" path={BRAND_ICONS.Facebook} label="Facebook" />
-              <SocialLink href="https://twitter.com" path={BRAND_ICONS.X} label="Twitter" />
+            <div className="flex space-x-4 mt-6">
+              <CustomLink href="https://instagram.com" className=" hover:text-pink-500 transition">
+                <InstagramIcon />
+              </CustomLink>
+              <CustomLink href="https://facebook.com" className=" hover:text-blue-500 transition">
+                <FacebookIcon />
+              </CustomLink>
+              <CustomLink href="https://twitter.com" className=" hover:text-blue-400 transition">
+                <TwitterIcon />
+              </CustomLink>
             </div>
           </div>
 
-          {/* Column 2: Experiences */}
-          <div className="space-y-6">
-            <h4 className="text-white font-bold uppercase tracking-wider text-sm">Experiences</h4>
-            <ul className="space-y-4">
-              <FooterLink href="/experiences/volunteer-programs">Volunteer Programs</FooterLink>
-              <FooterLink href="/experiences/work-exchange">Work Exchange</FooterLink>
-              <FooterLink href="/experiences/digital-nomad-stays">Nomad Stays</FooterLink>
-              <FooterLink href="/experiences/cultural-experiences">Cultural Trips</FooterLink>
+          {/* Column 2: Travel Experiences */}
+          <div className="col-span-1 md:col-span-1">
+            <h3 className="font-semibold text-white mb-6">Experiences</h3>
+            <ul className="space-y-3 text-sm">
+              <li>
+                <CustomLink href="/experiences/volunteer-programs" className="hover:text-white transition">
+                  Volunteer Programs
+                </CustomLink>
+              </li>
+              <li>
+                <CustomLink href="/experiences/work-exchange" className="hover:text-white transition">
+                  Work Exchange
+                </CustomLink>
+              </li>
+              <li>
+                <CustomLink href="/experiences/digital-nomad-stays" className="hover:text-white transition">
+                  Digital Nomad Stays
+                </CustomLink>
+              </li>
+              <li>
+                <CustomLink href="/experiences/cultural-experiences" className="hover:text-white transition">
+                  Cultural Experiences
+                </CustomLink>
+              </li>
             </ul>
           </div>
           <Link href="/admin/login" className="text-gray-400 text-xs hover:underline">
             Staff Portal
           </Link>
-          {/* Column 3: Company */}
-          <div className="space-y-6">
-            <h4 className="text-white font-bold uppercase tracking-wider text-sm">Company</h4>
-            <ul className="space-y-4">
-              <FooterLink href="/about">About Us</FooterLink>
-              <FooterLink href="/blog">Our Stories</FooterLink>
-              <FooterLink href="/pricing">Membership</FooterLink>
-              <FooterLink href="/host/register">Become a Host</FooterLink>
+          {/* Column 3: Company & Support */}
+          <div className="col-span-1 md:col-span-1">
+            <h3 className=" font-semibold text-white mb-6">Company</h3>
+            <ul className="space-y-3 text-sm">
+              <li>
+                <CustomLink href="/about" className="hover:text-white transition">
+                  About Us
+                </CustomLink>
+              </li>
+              <li>
+                <CustomLink href="/blog" className="hover:text-white transition">
+                  Blog
+                </CustomLink>
+              </li>
+              <li>
+                <CustomLink href="/contact" className="hover:text-white transition">
+                  Contact Support
+                </CustomLink>
+              </li>
+              <li>
+                <CustomLink href="/pricing" className="hover:text-white transition">
+                  Membership & Pricing
+                </CustomLink>
+              </li>
+              <li>
+                <CustomLink href="/host/register" className="hover:text-white transition">
+                  Become a Host
+                </CustomLink>
+              </li>
             </ul>
           </div>
 
-          {/* Column 4: Contact & Legal */}
-          <div className="space-y-6">
-            <h4 className="text-white font-bold uppercase tracking-wider text-sm">Get in Touch</h4>
-            <div className="space-y-4 text-sm">
-              <a href="mailto:support@nomadyatri.com" className="flex items-center gap-3 hover:text-yellow-400 transition-colors">
-                <Mail size={18} className="text-yellow-500" />
-                support@nomadyatri.com
-              </a>
-              <a href="tel:+918894108119" className="flex items-center gap-3 hover:text-yellow-400 transition-colors">
-                <Phone size={18} className="text-yellow-500" />
-                +91 88941 08119
-              </a>
-            </div>
-            <div className="pt-4 border-t border-white/10 space-y-2 text-xs">
-              <Link href="/privacy-policy" className="block hover:underline">Privacy Policy</Link>
-              <Link href="/terms-of-use" className="block hover:underline">Terms of Use</Link>
+          {/* Column 4: Legal & Contact Details */}
+          <div className="col-span-2 md:col-span-1">
+            <h3 className="font-semibold text-white mb-6">Legal</h3>
+            <ul className="space-y-3 text-sm">
+              <li>
+                <CustomLink href="/privacy-policy" className="hover:text-white transition">
+                  Privacy Policy
+                </CustomLink>
+              </li>
+              <li>
+                <CustomLink href="/terms-of-use" className="hover:text-grey transition">
+                  Terms of Use
+                </CustomLink>
+              </li>
+            </ul>
+
+            <div className="mt-6">
+              <p className="uppercase font-semibold mb-2">Get Help:</p>
+              <p className="">
+                <a href="mailto:support@nomadyatri.com" className="hover:text-white transition flex items-center gap-2">
+                  support@nomadyatri.com
+                </a>
+              </p>
+              <p className="mt-1">
+                <a href="tel:+918894108119" className="hover:text-white transition flex items-center gap-2">
+                  +91 88941 08119
+                </a>
+              </p>
             </div>
           </div>
 
         </div>
 
-        {/* Copyright Section */}
-        <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-stone-400">
-          <p>© {currentYear} Nomad Yatri. Crafted for the modern traveler.</p>
-          <p className="flex items-center gap-1">
-            Made with ❤️ in India
-          </p>
+        {/* Copyright */}
+        <div className="border-t mt-8 pt-1 text-center">
+          <p>© {new Date().getFullYear()} Nomad Yatri. All Rights Reserved.</p>
         </div>
+
       </div>
     </footer>
   );
 };
-
-/* --- Helper Components for Cleanliness --- */
-
-const FooterLink = ({ href, children }: { href: string; children: React.ReactNode }) => (
-  <li>
-    <Link
-      href={href}
-      className="text-stone-400 hover:text-yellow-400 hover:translate-x-1 transition-all duration-200 inline-flex items-center gap-1 group"
-    >
-      <ArrowRight size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
-      {children}
-    </Link>
-  </li>
-);
-const SocialLink = ({ href, path, label }: { href: string; path: string; label: string }) => (
-  <a
-    href={href}
-    aria-label={label}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-yellow-500 hover:text-[#431404] transition-all duration-300 group"
-  >
-    <svg
-      viewBox="0 0 24 24"
-      className="w-5 h-5 fill-current"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path d={path} />
-    </svg>
-  </a>
-);
 
 export default Footer;

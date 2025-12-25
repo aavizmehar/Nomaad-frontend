@@ -33,20 +33,20 @@ const Navbar: React.FC = () => {
 
   return (
     <nav className="w-full bg-white/90 backdrop-blur-2xl border-b border-gray-100 fixed top-0 left-0 z-[100] transition-all">
-      <div className="container mx-auto flex items-center justify-between px-6 py-5">
+      <div className="container mx-auto flex items-center justify-between px-6">
         
         {/* 1. Logo Section */}
         <Link href="/" className="flex items-center gap-4 group">
           <Image 
-            src="/nomadlogo.svg" 
-            height={55} 
-            width={55} 
+            src="/logo.png" 
+            height={100} 
+            width={100} 
             alt="Nomad Yatri Logo" 
             className="group-hover:rotate-[15deg] transition-transform duration-500" 
           />
           <div className="flex flex-col text-black">
-            <span className="text-2xl font-black tracking-widest uppercase leading-none">NOMAD</span>
-            <span className="text-[12px] font-bold text-gray-400 tracking-[0.5em] uppercase mt-1">YATRI</span>
+            <span className="text-3xl font-black tracking-widest uppercase leading-none">NOMAD</span>
+            <span className="text-[20px] font-bold text-gray-400 tracking-[0.5em] uppercase mt-1">YATRI</span>
           </div>
         </Link>
 

@@ -31,7 +31,7 @@ const Navbar: React.FC = () => {
 
   return (
     <nav className="w-full bg-white/90 backdrop-blur-2xl border-b border-gray-100 fixed top-0 left-0 z-[100] transition-all duration-300">
-      <div className="container mx-auto flex items-center justify-between px-6 h-20 md:h-24">
+      <div className="container mx-auto flex items-center justify-between px-6 h-20">
         
         <Link href="/" className="flex items-center gap-3 group">
           <div className="relative shrink-0">

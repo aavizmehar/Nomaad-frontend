@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useRef, useEffect } from "react"; // Added useRef, useEffect
 import Link from "next/link";
 import { IoIosArrowDown } from "react-icons/io";
 import { HiMenuAlt3, HiX } from "react-icons/hi";
@@ -16,6 +16,24 @@ const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [mobileExpOpen, setMobileExpOpen] = useState(false);
   const [mobileComOpen, setMobileComOpen] = useState(false);
+
+  // --- Click Outside Logic ---
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      // If the menu is open and the click is NOT inside the dropdownRef
+      if (isOpen && dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen]);
+  // ----------------------------
 
   const handleMobileLinkClick = () => {
     setIsMobileOpen(false);
@@ -37,13 +55,12 @@ const Navbar: React.FC = () => {
           <div className="relative shrink-0">
             <Image
               src="/logo.png"
-              height={70} 
+              height={70}
               width={70}
               alt="Nomad Yatri Logo"
               className="group-hover:rotate-[15deg] transition-transform duration-500"
             />
           </div>
-
           <div className="flex flex-col items-center select-none">
             <div className="flex items-baseline">
               <span className="text-2xl md:text-3xl font-black tracking-tighter text-black transition-transform duration-300 group-hover:-translate-x-1">
@@ -95,45 +112,45 @@ const Navbar: React.FC = () => {
             <li><Link href="/pricing" className="hover:text-black transition-colors">Pricing</Link></li>
           </ul>
 
-          <div className="relative border-l border-gray-100 pl-8">
+          {/* Account/Auth Section with Ref */}
+          <div className="relative border-l border-gray-100 pl-8" ref={dropdownRef}>
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className={`flex items-center gap-3 px-6 py-3 rounded-full transition-all duration-500 shadow-lg ${
-                isLoggedIn ? "bg-black text-white" : "bg-yellow-400 text-black hover:bg-black hover:text-white"
-              }`}
+              className={`flex items-center gap-3 px-6 py-3 rounded-full transition-all duration-500 shadow-lg ${isLoggedIn ? "bg-black text-white" : "bg-yellow-400 text-black hover:bg-black hover:text-white"
+                }`}
             >
               <UserProfileIcon />
               <span className="text-xs font-black uppercase tracking-widest">{isLoggedIn ? "Account" : "Join Now"}</span>
             </button>
 
             {isOpen && (
-               <div className="absolute right-0 mt-5 w-64 bg-white border border-gray-50 shadow-2xl rounded-[2rem] p-4 z-50 animate-in fade-in zoom-in duration-200">
-                  <ul className="text-sm font-bold tracking-wide">
-                    {isLoggedIn ? (
-                      <>
-                        <li><Link href={role === "host" ? "/host/dashboard" : "/user/profile"} onClick={() => setIsOpen(false)} className="block px-5 py-4 hover:bg-gray-50 rounded-2xl transition">User Dashboard</Link></li>
-                        <div className="h-px bg-gray-100 my-2 mx-4" />
-                        <li><button onClick={() => { logout(); setIsOpen(false); router.push("/user/login"); }} className="w-full text-left px-5 py-4 text-red-500 hover:bg-red-50 rounded-2xl transition">Sign Out</button></li>
-                      </>
-                    ) : (
-                      <>
-                        <li><Link href="/user/login" onClick={() => setIsOpen(false)} className="block px-5 py-4 hover:bg-gray-50 rounded-2xl transition">Sign In</Link></li>
-                        <li><Link href="/user/register" onClick={() => setIsOpen(false)} className="block px-5 py-4 bg-black text-white text-center rounded-2xl mt-2 transition">Create Account</Link></li>
-                      </>
-                    )}
-                  </ul>
-               </div>
+              <div className="absolute right-0 mt-5 w-64 bg-white border border-gray-50 shadow-2xl rounded-[2rem] p-4 z-50 animate-in fade-in zoom-in duration-200">
+                <ul className="text-sm font-bold tracking-wide">
+                  {isLoggedIn ? (
+                    <>
+                      <li><Link href={role === "host" ? "/host/dashboard" : "/user/profile"} onClick={() => setIsOpen(false)} className="block px-5 py-4 hover:bg-gray-50 rounded-2xl transition">User Dashboard</Link></li>
+                      <div className="h-px bg-gray-100 my-2 mx-4" />
+                      <li><button onClick={() => { logout(); setIsOpen(false); router.push("/user/login"); }} className="w-full text-left px-5 py-4 text-red-500 hover:bg-red-50 rounded-2xl transition">Sign Out</button></li>
+                    </>
+                  ) : (
+                    <>
+                      <li><Link href="/user/login" onClick={() => setIsOpen(false)} className="block px-5 py-4 hover:bg-gray-50 rounded-2xl transition">Sign In</Link></li>
+                      <li><Link href="/user/register" onClick={() => setIsOpen(false)} className="block px-5 py-4 bg-black text-white text-center rounded-2xl mt-2 transition">Create Account</Link></li>
+                    </>
+                  )}
+                </ul>
+              </div>
             )}
           </div>
         </div>
 
-        {/* 3. Mobile Hamburger */}
+        {/* Mobile Hamburger */}
         <button className="lg:hidden text-3xl text-black" onClick={() => setIsMobileOpen(!isMobileOpen)}>
           {isMobileOpen ? <HiX /> : <HiMenuAlt3 />}
         </button>
       </div>
 
-      {/* 4. Mobile Menu Overlay (Fixed with all links) */}
+      {/* Mobile Menu Overlay */}
       {isMobileOpen && (
         <div className="fixed h-screen inset-0 top-[85px] bg-white z-[90] px-10 py-8 flex flex-col space-y-6 overflow-y-auto animate-in slide-in-from-bottom duration-500">
           <ul className="space-y-6">

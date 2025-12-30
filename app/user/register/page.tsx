@@ -1,11 +1,13 @@
 "use client";
 
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useContext } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { AuthContext } from "../../context/AuthContext";
 
 const UsersPage = () => {
   const router = useRouter();
+  const { login } = useContext(AuthContext);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -38,7 +40,12 @@ const UsersPage = () => {
         throw new Error(data.message || data.error || "Registration failed");
       }
 
-      router.push(`/user/login?role=${role}`);
+      if (login) {
+        login(data.data.user, data.data.accessToken);
+      }
+
+      router.push(data.data.redirectTo);
+
     } catch (err: unknown) {
       if (err instanceof Error) setError(err.message);
       else setError("An unexpected error occurred");
@@ -200,7 +207,6 @@ const UsersPage = () => {
               Continue with Google
             </button>
 
-            {/* Bottom Links */}
             <div className="mt-10 text-center">
               <p className="text-sm text-gray-500">
                 Already have an account?{" "}

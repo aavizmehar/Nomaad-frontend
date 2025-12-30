@@ -104,7 +104,7 @@ const Footer: React.FC = () => {
                 </CustomLink>
               </li>
               <li>
-                <CustomLink href="/host/register" className="hover:text-white transition">
+                <CustomLink href="/user/register" className="hover:text-white transition">
                   Become a Host
                 </CustomLink>
               </li>

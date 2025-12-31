@@ -50,7 +50,7 @@ const Navbar: React.FC = () => {
   return (
     <nav className="w-full bg-white/90 backdrop-blur-2xl border-b border-gray-100 fixed top-0 left-0 z-[100] transition-all duration-300">
       <div className="container mx-auto flex items-center justify-between px-6 h-20">
-        
+
         <Link href="/" className="flex items-center gap-3 group">
           <div className="relative shrink-0">
             <Image
@@ -191,8 +191,20 @@ const Navbar: React.FC = () => {
           <div className="pt-8 border-t border-gray-100 flex flex-col gap-4">
             {isLoggedIn ? (
               <>
-                <Link href={role === "host" ? "/host/dashboard" : "/user/profile"} onClick={handleMobileLinkClick} className="py-6 text-center bg-black text-white rounded-[2rem] text-sm font-black uppercase tracking-widest shadow-xl">My Dashboard</Link>
-                <button onClick={() => { logout(); setIsMobileOpen(false); router.push("/user/login"); }} className="py-6 text-center border-2 border-red-500 text-red-500 rounded-[2rem] text-sm font-black uppercase tracking-widest">Sign Out</button>
+                <li>
+                  <Link
+                    href={
+                      role === "admin" ? "/admin/dashboard" :
+                        role === "host" ? "/host/dashboard" :
+                          role === "volunteer" ? "/volunteer/dashboard" :
+                            "/user/profile"
+                    }
+                    onClick={() => setIsOpen(false)}
+                    className="block px-5 py-4 hover:bg-gray-50 rounded-2xl transition"
+                  >
+                    Dashboard
+                  </Link>
+                </li>      <button onClick={() => { logout(); setIsMobileOpen(false); router.push("/user/login"); }} className="py-6 text-center border-2 border-red-500 text-red-500 rounded-[2rem] text-sm font-black uppercase tracking-widest">Sign Out</button>
               </>
             ) : (
               <>

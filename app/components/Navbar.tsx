@@ -197,7 +197,7 @@ const Navbar: React.FC = () => {
                       role === "admin" ? "/admin/dashboard" :
                         role === "host" ? "/host/dashboard" :
                           role === "volunteer" ? "/volunteer/dashboard" :
-                            "/user/profile"
+                            ""
                     }
                     onClick={() => setIsOpen(false)}
                     className="block px-5 py-4 hover:bg-gray-50 rounded-2xl transition"

@@ -23,7 +23,7 @@ const TEAM_MEMBERS = [
   },
   {
     name: "Leeza Sharma", role: "Social media manager",
-    image: "/team/leeza.webp"
+    image: "/team/leeza.jpg"
   },
   {
     name: "Yavaneeka Swami", role: "Graphic designer",

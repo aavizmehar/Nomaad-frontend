@@ -22,8 +22,8 @@ const TEAM_MEMBERS = [
     image: "/team/Aaviz.webp"
   },
   {
-    name: "Adrita Khan", role: "Social media manager",
-    image: "/team/Adrita.webp"
+    name: "Leeza Sharma", role: "Social media manager",
+    image: "/team/leeza.webp"
   },
   {
     name: "Yavaneeka Swami", role: "Graphic designer",

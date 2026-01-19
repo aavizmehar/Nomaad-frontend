@@ -6,6 +6,8 @@ import {
   FaInstagram,
   FaFacebookF,
   FaTwitter,
+  FaYoutube,
+  FaLinkedinIn,
   FaEnvelope,
   FaPhoneAlt
 } from "react-icons/fa";
@@ -15,10 +17,10 @@ const Footer: React.FC = () => {
 
   return (
     <footer className="bg-[#5c2e1d] text-white pt-26 mt-16">
-      <div className="container mx-auto pb-20 max-w-7xl">
+      <div className="container mx-auto pb-20 max-w-7xl px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
 
-          {/* Column 1: About */}
+          {/* Column 1: About & Socials */}
           <div className="space-y-6">
             <h3 className="text-3xl font-bold tracking-tighter uppercase italic">
               Nomad <span className="text-orange-400 not-italic">Yatri</span>
@@ -29,22 +31,32 @@ const Footer: React.FC = () => {
               Travel with a purpose.
             </p>
 
-            {/* Social Icons */}
-            <div className="flex items-center space-x-4">
+            {/* Updated Social Icons */}
+            <div className="flex flex-wrap items-center gap-3">
               <SocialIcon
-                href="https://www.instagram.com/nomad_yatri_official/"
-                icon={<FaInstagram size={24} />}
+                href="https://www.instagram.com/nomad_yatri_official"
+                icon={<FaInstagram size={20} />}
                 label="Instagram"
               />
               <SocialIcon
-                href="https://facebook.com"
-                icon={<FaFacebookF size={22} />}
+                href="https://www.facebook.com/share/17zLLTSrXU/"
+                icon={<FaFacebookF size={18} />}
                 label="Facebook"
               />
               <SocialIcon
-                href="https://twitter.com"
-                icon={<FaTwitter size={24} />}
-                label="Twitter"
+                href="https://x.com/nomadyatri11"
+                icon={<FaTwitter size={20} />}
+                label="X (Twitter)"
+              />
+              <SocialIcon
+                href="https://youtube.com/@nomadyatriofficial"
+                icon={<FaYoutube size={20} />}
+                label="YouTube"
+              />
+              <SocialIcon
+                href="https://www.linkedin.com/in/nomadyatri-yatri-2bb1163a6"
+                icon={<FaLinkedinIn size={20} />}
+                label="LinkedIn"
               />
             </div>
           </div>
@@ -70,8 +82,6 @@ const Footer: React.FC = () => {
             <ul className="space-y-4">
               <FooterLink href="/about">About Us</FooterLink>
               <FooterLink href="/contact">Contact Us</FooterLink>
-              {/* <FooterLink href="/privacy-policy">Privacy Policy</FooterLink>
-              <FooterLink href="/terms-of-use">Terms of Use</FooterLink> */}
             </ul>
           </div>
 
@@ -91,18 +101,17 @@ const Footer: React.FC = () => {
               </a>
               <Link
                 href="/admin/login"
-                className="text-xs bg-white/10 hover:bg-white/20 px-4 py-2 rounded font-bold transition"
+                className="inline-block text-xs bg-white/10 hover:bg-white/20 px-4 py-2 rounded font-bold transition"
               >
                 Staff Login
               </Link>
             </div>
           </div>
         </div>
-
-
       </div>
+
       {/* Bottom Bar */}
-      <div className="border-t border-white/20 mt-16 pt-2 ">
+      <div className="border-t border-white/20 mt-16 py-6">
         <p className="text-sm font-medium text-center">
           © {currentYear} Nomad Yatri. All rights reserved.
         </p>

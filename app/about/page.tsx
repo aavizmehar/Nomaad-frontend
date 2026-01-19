@@ -19,7 +19,7 @@ const TEAM_MEMBERS = [
   {
     name: "Aaviz Mehar",
     role: "Web Developer",
-    image: "/team/Aaviz.webp"
+    image: ""
   },
   {
     name: "Leeza Sharma", role: "Social media manager",

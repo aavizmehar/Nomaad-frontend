@@ -5,12 +5,13 @@ import Link from "next/link";
 import {
   FaInstagram,
   FaFacebookF,
-  FaTwitter,
   FaYoutube,
   FaLinkedinIn,
   FaEnvelope,
   FaPhoneAlt
 } from "react-icons/fa";
+// Import FaXTwitter from the fa6 sub-library
+import { FaXTwitter } from "react-icons/fa6";
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
@@ -31,7 +32,6 @@ const Footer: React.FC = () => {
               Travel with a purpose.
             </p>
 
-            {/* Updated Social Icons */}
             <div className="flex flex-wrap items-center gap-3">
               <SocialIcon
                 href="https://www.instagram.com/nomad_yatri_official"
@@ -45,7 +45,7 @@ const Footer: React.FC = () => {
               />
               <SocialIcon
                 href="https://x.com/nomadyatri11"
-                icon={<FaTwitter size={20} />}
+                icon={<FaXTwitter size={18} />}
                 label="X (Twitter)"
               />
               <SocialIcon

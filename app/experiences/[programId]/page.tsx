@@ -197,7 +197,7 @@ export default function ProgramDetailPage() {
                   {[
                     { icon: Clock, label: "Duration", val: program.duration || 'N/A' },
                     { icon: Users, label: "Group Size", val: `Max ${program.maxVolunteers || 'N/A'} People` },
-                    { icon: Calendar, label: "Next Date", val: new Date(program.createdAt).toLocaleDateString() || 'N/A' }
+                    { icon: Calendar, label: "Creation Date", val: new Date(program.createdAt).toLocaleDateString() || 'N/A' }
                   ].map((stat, i) => (
                     <div key={i} className="flex items-center justify-between p-4 rounded-2xl bg-gray-50/50">
                       <div className="flex items-center gap-3">
